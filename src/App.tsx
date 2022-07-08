@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-const roundHalf = (num) => {
+interface Meal {
+  name: string,
+  carbs: number,
+  units: number
+}
+
+const roundHalf = (num: number) => {
   return Math.round(num * 2) / 2;
 };
 
 function App() {
-  const [currentUnitCalculation, setCurrentUnitCalculation] = useState(0.5);
+  const [currentUnitCalculation, setCurrentUnitCalculation] = useState<number>(0.5);
   const [currentCarbs, setCurrentCarbs] = useState(0);
   const [calculatedUnitAmount, setCalculatedUnitAmount] = useState(0);
   const [currentMealName, setCurrentMealName] = useState('');
-  const [pastMeals, setPastMeals] = useState([]);
+  const [pastMeals, setPastMeals] = useState<Meal[]>([]);
 
   const handleChange = (event) => setCurrentCarbs(event.target.value);
 
@@ -32,7 +37,7 @@ function App() {
       <p>Your personal unit calculation per 10g Example: 20g = 1 unit</p>
       <input
         value={currentUnitCalculation}
-        onChange={(e) => setCurrentUnitCalculation(e.target.value)}
+        onChange={(e) => setCurrentUnitCalculation(parseInt(e.target.value, 10))}
       />
       <p>Name of dish</p>
       <input
