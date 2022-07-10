@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { format } from 'date-fns'
 import './App.css';
-import Button from './components/Button'
+import Button from './components/Button/Button'
 import useLocalStorage from './helpers/useLocalStorage'
-
-// interface Meal {
-//   name: string,
-//   carbs: number,
-//   units: number
-// }
+import Card from './components/Card/Card'
+import { useHistory } from "react-router-dom";
 
 const roundHalf = (num: number) => {
   return Math.round(num * 2) / 2;
 };
+
+const colorArray = [
+  'var(--primary)',
+  'var(--purple)',
+  'var(--yellow)'
+]
 
 function App() {
   const [currentUnitCalculation, setCurrentUnitCalculation] = useState<number>(0.5);
@@ -20,6 +22,10 @@ function App() {
   const [calculatedUnitAmount, setCalculatedUnitAmount] = useState(0);
   const [currentMealName, setCurrentMealName] = useState('Food');
   const [pastMeals, setPastMeals] = useLocalStorage("pastMeals", []);
+
+  let history = useHistory();
+
+  let currentMealIndex = 0
 
   const handleChange = (event) => setCurrentCarbs(event.target.value && parseInt(event.target.value, 10));
 
@@ -30,7 +36,7 @@ function App() {
     setCalculatedUnitAmount(calculatedUnits);
     setPastMeals([
       ...pastMeals,
-      { name: currentMealName, carbs: currentCarbs, units: calculatedUnits, date: format(new Date(), 'MM/dd/yyyy')},
+      { name: currentMealName, carbs: currentCarbs, units: calculatedUnits, date: format(new Date(), 'E e. LLL')},
     ]);
   };
 
@@ -81,12 +87,22 @@ function App() {
           </p>
         )}
       </div>
-      <div className="calculate">  
-        {pastMeals.map((meal, index) => (
-          <p key={index}>
-            {meal.name} - {meal.carbs}g - {meal.units} units - {meal.date}
-          </p>
-        ))}
+
+      <div className="pastMeals folded" onClick={() => history.push("/history")}>
+      <p className='history'>History</p>
+        {pastMeals.slice(pastMeals.length - 3, pastMeals.length).map((meal, i) => {
+          if(currentMealIndex < 2) {
+            currentMealIndex++
+          } else {
+            currentMealIndex = 0
+          }
+
+          const topMargin = 50;
+
+          return <div style={{ top: (10 * i) + topMargin }}><Card color={colorArray[currentMealIndex]} key={i} mealName={meal.name} carbs={meal.carbs} units={meal.units} date={meal.date}  /></div>
+        })}
+      </div>
+      <div className="calculate">
         <Button onClick={handleSubmit}>Calculate</Button>
       </div>
     </div>
