@@ -5,7 +5,6 @@ interface CardProps {
   carbs: number,
   units: number,
   date: string,
-  key: string
   color?: string
 }
 
@@ -16,7 +15,6 @@ interface CardBlockProps {
 }
 
 const CardBlock = ({ name, value, valueExtension }: CardBlockProps) => {
-
   return (
     <>
       <p>{name}</p>
@@ -42,4 +40,4 @@ const Card = ({ mealName, carbs, units, date, color }: CardProps) => (
   </div>
 )
 
-export default Card;
+export default Card

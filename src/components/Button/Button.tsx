@@ -1,5 +1,5 @@
-import './Button.css';
+import './Button.css'
 
-const Button = (props) => <button className='button' {...props}>{props.children}</button>
+const Button = (props: any) => <button className='button' {...props}>{props.children}</button>
 
-export default Button;
+export default Button

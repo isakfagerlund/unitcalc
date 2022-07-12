@@ -19,15 +19,14 @@ img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
+
 input, button, textarea, select {
   font: inherit;
 }
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
-#root, #__next {
-  isolation: isolate;
-}
+
 
 /* Colors */
 :root {
@@ -66,4 +65,30 @@ p {
 
 b {
   font-weight: 700;
+}
+
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+  padding: var(--24px);
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  max-height: 1200px;
+}
+
+.scrollWrapper {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--24px);
+  padding-bottom: 120px;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
 }
