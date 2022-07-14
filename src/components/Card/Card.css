@@ -9,6 +9,27 @@
   background: var(--primary);
 }
 
+.cardBG {
+  background: var(--red);
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.draggable {
+  cursor: -webkit-grab;
+}
+
+.draggable:hover {
+  transform: scale(1.1);
+}
+
+.draggable:active {
+  cursor: -webkit-grabbing;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
 .cardBottom {
   display: flex;
   flex-direction: row;

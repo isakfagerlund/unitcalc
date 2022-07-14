@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.calculate button {
+  max-width: 552px;
+}
+
 .app-welcome {
   width: 100%;
 }
@@ -16,7 +20,7 @@
 .dataInputs {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 30px;
 }
 
 .dataInputs p {
@@ -54,8 +58,8 @@
 }
 
 .carbButtons button {
+  position: relative;
   width: 50px;
-  height: 50px;
 }
 
 .history {
@@ -82,4 +86,11 @@
 .folded > div {
   width: 100%;
   position: absolute;
+}
+
+.mealList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }

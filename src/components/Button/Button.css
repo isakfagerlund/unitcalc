@@ -1,10 +1,23 @@
 .button {
+  position: relative;
+  overflow:visible;
   font-weight: bold;
   font-size: var(--24px);
   width: 100%;
   border-radius: 9px;
-  filter: drop-shadow(0px 2px 0px #000000);
+  box-shadow: 0px 2px 0px #000000;
   background: var(--primary);
   border: 0;
   padding: 6px 0;
+  color: var(--text-black);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: box-shadow 0.05s ease-in-out, transform 0.05s ease-in-out;
+}
+
+.button:active {
+  background: var(--primary-dark);
+  box-shadow: 0px 0px 0px var(--primary);
+  transform: translateY(2px);
+  -webkit-transform: translateY(2px);
 }

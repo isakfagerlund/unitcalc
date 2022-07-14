@@ -1,0 +1,35 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.panel {
+  border-radius: 12px;
+  background: #fff;
+  max-width: 600px;
+  padding: 30px 10px;
+  z-index: 101
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(109, 109, 109, 0.9);
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.panel-description {
+  text-align: center;
+  padding: 0 10px 10px 10px;
+  font-size: var(--24px);
+  font-weight: 700;
+}

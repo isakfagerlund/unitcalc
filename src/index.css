@@ -11,10 +11,14 @@
 html, body {
   height: 100%;
 }
+
 body {
+  min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
@@ -33,9 +37,25 @@ p, h1, h2, h3, h4, h5, h6 {
   --text-black: #222;
   --text-grey: #666666;
   --primary: #FFE0CB;
+  --primary-dark: #f7d6bf;
   --purple: #9C82FF;
   --yellow: #F9FEC4;
+  --red: #FF8298;
+  --green: #CBFFD0;
+
+  --shadow-color: 0deg 0% 76%;
+  --shadow-elevation-low:
+    0.3px 0.5px 0.8px hsl(var(--shadow-color) / 0.11),
+    0.8px 1.6px 2.5px -0.8px hsl(var(--shadow-color) / 0.31);
+  --shadow-elevation-medium:
+    0.3px 0.5px 0.8px hsl(var(--shadow-color) / 0.15),
+    4.1px 8.1px 12.5px -0.8px hsl(var(--shadow-color) / 0.44);
+  --shadow-elevation-high:
+    0.3px 0.5px 0.8px hsl(var(--shadow-color) / 0.18),
+    4.5px 9.1px 13.9px -0.4px hsl(var(--shadow-color) / 0.42),
+    15.5px 31px 47.6px -0.8px hsl(var(--shadow-color) / 0.66);
 }
+
 
 
 /* Fonts */
@@ -71,13 +91,12 @@ b {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: var(--24px);
   align-items: center;
   width: 100%;
   max-width: 600px;
-  max-height: 1200px;
+  gap: 40px;
 }
 
 .scrollWrapper {
@@ -85,7 +104,7 @@ b {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: var(--24px);
   padding-bottom: 120px;
   align-items: center;

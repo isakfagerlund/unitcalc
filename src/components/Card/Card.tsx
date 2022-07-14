@@ -1,11 +1,16 @@
 import './Card.css'
-
+import { useSpring, animated } from '@react-spring/web'
+import { useDrag } from 'react-use-gesture'
 interface CardProps {
   mealName: string,
   carbs: number,
   units: number,
   date: string,
   color?: string
+  onClick?: (e: any) => void
+  id: string,
+  draggable?: boolean,
+  backgroundColor: string
 }
 
 interface CardBlockProps {
@@ -23,21 +28,56 @@ const CardBlock = ({ name, value, valueExtension }: CardBlockProps) => {
   )
 }
 
-const Card = ({ mealName, carbs, units, date, color }: CardProps) => (
-  <div className="card" style={{ backgroundColor: color }}>
-    <div>
-      <CardBlock name="Meal Name" value={mealName} />
-    </div>
-    <div className="cardBottom">
-      <div>
-        <CardBlock name="Carbs" value={carbs} valueExtension="g" />
-      </div>
-      <div>
-        <CardBlock name="Units" value={units} />
-      </div>
-    </div>
-    <span>{date}</span>
-  </div>
-)
+const Card = ({ mealName, carbs, units, date, onClick, id, draggable, backgroundColor }: CardProps) => {
+  const [{ x, scale }, api] = useSpring(() => ({
+    x: 0,
+    scale: 1
+  }))
+
+  const bind = useDrag(({ active, movement: [x] }) => {
+    return api.start({
+      x: active ? x - 10 : 0,
+      immediate: name => active && name === 'x'
+    })
+  }
+  )
+
+  const handleDrag = (e: any) => {
+    const valueDragged = x.animation.fromValues[0]
+    if (valueDragged < -200 || valueDragged > 200) {
+      onClick && onClick(e)
+    }
+  }
+
+  const opacityAmount = x.to({
+    map: Math.abs,
+    range: [50, 500],
+    output: [1, 0.3],
+    extrapolate: 'clamp'
+  })
+
+  const shouldBind = draggable ? bind() : {}
+
+  return (
+    <animated.div {...shouldBind} className={`cardBG ${draggable && 'draggable'}`} style={{ opacity: opacityAmount }}>
+      <animated.div style={{ x, scale }}>
+        <div id={id} onMouseUp={handleDrag} className="card" style={{ backgroundColor }}>
+          <div>
+            <CardBlock name="Meal Name" value={mealName} />
+          </div>
+          <div className="cardBottom">
+            <div>
+              <CardBlock name="Carbs" value={carbs} valueExtension="g" />
+            </div>
+            <div>
+              <CardBlock name="Units" value={units} />
+            </div>
+          </div>
+          <span>{date}</span>
+        </div>
+      </animated.div>
+    </animated.div>
+  )
+}
 
 export default Card

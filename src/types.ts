@@ -2,5 +2,6 @@ export interface Meal {
   name: string,
   carbs: number,
   units: number,
-  date: string
+  date: string,
+  id: string
 }
