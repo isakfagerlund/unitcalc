@@ -5,7 +5,7 @@ interface CardProps {
   mealName: string,
   carbs: number,
   units: number,
-  date: string,
+  date: Date,
   color?: string
   onClick?: (e: any) => void
   id: string,
@@ -18,6 +18,8 @@ interface CardBlockProps {
   value: string | number,
   valueExtension?: string,
 }
+
+const options = { weekday: 'short', month: 'long', day: 'numeric' }
 
 const CardBlock = ({ name, value, valueExtension }: CardBlockProps) => {
   return (
@@ -73,7 +75,7 @@ const Card = ({ mealName, carbs, units, date, onClick, id, draggable, background
               <CardBlock name="Units" value={units} />
             </div>
           </div>
-          <span>{date}</span>
+          <span>{date.toLocaleDateString(navigator?.language ?? 'en-US', options)}</span>
         </div>
       </animated.div>
     </animated.div>

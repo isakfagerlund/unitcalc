@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { format } from 'date-fns'
 import './App.css'
 import Button from './components/Button/Button'
 import useLocalStorage from './helpers/useLocalStorage'
@@ -26,6 +25,7 @@ const App = () => {
   const [currentMealName, setCurrentMealName] = useState('Food')
   const [pastMeals, setPastMeals] = useLocalStorage('pastMeals', [])
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [currentCardInProgress, setCurrentCardInProgress] = useState('')
 
   const handleChange = (event: any) => setCurrentCarbs(event.target.value && parseInt(event.target.value, 10))
 
@@ -36,7 +36,7 @@ const App = () => {
     setCalculatedUnitAmount(calculatedUnits)
     setPastMeals([
       ...pastMeals,
-      { name: currentMealName, carbs: currentCarbs, units: calculatedUnits, date: format(new Date(), 'E e. LLL'), id: generateUniqueId() }
+      { name: currentMealName, carbs: currentCarbs, units: calculatedUnits, date: new Date(), id: generateUniqueId() }
     ])
   }
 
@@ -48,11 +48,17 @@ const App = () => {
     return setCurrentCarbs(currentCarbs + 10)
   }
 
-  const handleCardDelete = (e: any) => {
-    const cardID = e.currentTarget.id
-
-    const removeCard = pastMeals.filter((meal: Meal) => meal.id !== cardID)
+  const handleOk = () => {
+    const removeCard = pastMeals.filter((meal: Meal) => meal.id !== currentCardInProgress)
     setPastMeals(removeCard)
+    setDialogOpen(false)
+  }
+
+  const handleCardDelete = (e: any) => {
+    setDialogOpen(true)
+    console.log(e)
+    const cardID = e.currentTarget.id
+    setCurrentCardInProgress(cardID)
   }
 
   const increaseCarbs = () => handleSetCarbs('increase')
@@ -107,12 +113,11 @@ const App = () => {
               currentColorIndex++
             }
 
-            return <Card onClick={handleCardDelete} backgroundColor={colorArray[currentColorIndex]} draggable id={meal.id} key={i} mealName={meal.name} carbs={meal.carbs} units={meal.units} date={meal.date} />
+            return <Card onClick={handleCardDelete} backgroundColor={colorArray[currentColorIndex]} draggable id={meal.id} key={i} mealName={meal.name} carbs={meal.carbs} units={meal.units} date={new Date(meal.date)} />
           })}
         </div>
-        <button onClick={() => setDialogOpen(true)}>DELETE STUFF</button>
       </div>
-      <Dialog isOpen={dialogOpen} setIsOpen={setDialogOpen} handleOk={() => console.log('Ok')} handleCancel={() => console.log('Cancel')} /></>
+      <Dialog isOpen={dialogOpen} setIsOpen={setDialogOpen} handleOk={handleOk} handleCancel={() => setDialogOpen(false)} /></>
   )
 }
 
