@@ -11,6 +11,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "start": "bun dev",
     "lint": "eslint src/**/*.tsx",
     "build": "parcel build public/index.html"
   },

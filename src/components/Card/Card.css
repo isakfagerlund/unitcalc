@@ -9,6 +9,12 @@
   background: var(--primary);
 }
 
+@media (max-width: 450px) {
+  .card {
+    padding: 12px;
+  }
+}
+
 .cardBG {
   background: var(--red);
   border-radius: 12px;
@@ -76,4 +82,12 @@
   background: rgba(255, 255, 255, 0.2);
   display: inline-flex;
   border-radius: 50%;
+}
+
+.voteDown.active path {
+  stroke: var(--red)
+}
+
+.voteUp.active path {
+  stroke: var(--green)
 }

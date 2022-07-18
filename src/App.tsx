@@ -24,7 +24,39 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit} className="wrapper login">
       <input value={input} onChange={handleChange} required></input>
-      <Button >Choose Name</Button>
+      <Button>Choose Name</Button>
+    </form>
+  )
+}
+
+const Settings = () => {
+  const [username, setUsername] = useLocalStorage('username', '')
+  const [currentUnitCalculation, setCurrentUnitCalculaion] = useLocalStorage('unitCalculation', 0.5)
+  const [inputUsername, setInputUsername] = useState(username)
+  const [inputUnit, setInputUnit] = useState(currentUnitCalculation)
+  const [, setShowSettings] = useLocalStorage('showSettings', 0)
+
+  const handleChange = (e: any, type: string) => {
+    if (type === 'username') {
+      setInputUsername(e.target.value)
+    } else {
+      setInputUnit(e.target.value)
+    }
+  }
+
+  const handleSubmit = () => {
+    setUsername(inputUsername)
+    setCurrentUnitCalculaion(inputUnit)
+    setShowSettings(0)
+    location.reload()
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="wrapper login">
+      <p>Settings</p>
+      <input value={inputUsername} onChange={(e) => handleChange(e, 'username')} required />
+      <input value={inputUnit} onChange={(e) => handleChange(e, 'unit')} required />
+      <Button>Update profile</Button>
     </form>
   )
 }
@@ -48,6 +80,7 @@ const App = () => {
   const [pastMeals, setPastMeals] = useLocalStorage('pastMeals', [])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [currentCardInProgress, setCurrentCardInProgress] = useState('')
+  const [showSettings, setShowSettings] = useLocalStorage('showSettings', 0)
 
   const handleChange = (event: any) => setCurrentCarbs(event.target.value && parseInt(event.target.value, 10))
 
@@ -89,12 +122,25 @@ const App = () => {
     setCurrentCardInProgress(cardID)
   }
 
+  const resetVotes = (id: string) => {
+    const updatedArray = pastMeals.map((meal: Meal) => meal.id === id ? { ...meal, vote: { up: false, down: false } } : meal)
+    setPastMeals(updatedArray)
+  }
+
   const handleUpvote = (id: string) => {
+    const item = pastMeals.find((meal: Meal) => meal.id === id)
+    if (item.vote.up) {
+      return resetVotes(id)
+    }
     const updatedArray = pastMeals.map((meal: Meal) => meal.id === id ? { ...meal, vote: { up: true, down: false } } : meal)
     setPastMeals(updatedArray)
   }
 
   const handleDownvote = (id: string) => {
+    const item = pastMeals.find((meal: Meal) => meal.id === id)
+    if (item.vote.down) {
+      return resetVotes(id)
+    }
     const updatedArray = pastMeals.map((meal: Meal) => meal.id === id ? { ...meal, vote: { up: false, down: true } } : meal)
     setPastMeals(updatedArray)
   }
@@ -108,10 +154,14 @@ const App = () => {
     return <Login />
   }
 
+  if (showSettings) {
+    return <Settings />
+  }
+
   return (
     <>
       <div className="wrapper">
-        <Welcome username={username} currentUnitCalculation={currentUnitCalculation} />
+        <Welcome username={username} currentUnitCalculation={currentUnitCalculation} setShowSettings={setShowSettings} />
         <div className='dataInputs'>
           <div>
             <p>Meal name</p>

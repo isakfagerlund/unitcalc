@@ -1,0 +1,19 @@
+.app-welcome {
+  width: 100%;
+  position: relative;
+}
+
+.app-welcome span{
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-grey);
+}
+
+.app-welcome svg {
+  height: 30px;
+  width: 40px;
+  top: 1px;
+  right: 0;
+  color: var(--text-grey);
+  cursor: pointer;
+}

@@ -99,15 +99,8 @@ b {
   gap: 40px;
 }
 
-.scrollWrapper {
-  position: relative;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: var(--24px);
-  padding-bottom: 120px;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
+@media (max-width: 450px) {
+  .wrapper {
+    padding: var(--16px);
+  }
 }
