@@ -93,7 +93,24 @@
   gap: 20px;
 }
 
+.login {
+  animation-duration: 300ms;
+  animation-name: fadein;
+}
+
 .login input {
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  width: 100%;
+  padding: 10px;
+}
+
+.settings {
+  animation-duration: 300ms;
+  animation-name: fadein;
+}
+
+.settings input {
   border: 2px solid var(--primary);
   border-radius: 12px;
   width: 100%;
@@ -112,4 +129,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.dataInputs p.calculatedAmount {
+  font-size: var(--27px);
+  animation-duration: 300ms;
+  animation-name: fadein;
+}
+
+.calculatedAmount span {
+  color: var(--text-black)
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

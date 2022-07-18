@@ -25,7 +25,7 @@ const Settings = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="wrapper login">
+    <form onSubmit={handleSubmit} className="wrapper settings">
       <p>Settings</p>
       <input value={inputUsername} onChange={(e) => handleChange(e, 'username')} required />
       <input value={inputUnit} onChange={(e) => handleChange(e, 'unit')} required />

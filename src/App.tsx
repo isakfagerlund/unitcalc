@@ -49,6 +49,10 @@ const App = () => {
         vote: { up: false, down: false }
       }
     ])
+    setTimeout(() => {
+      setCalculatedUnitAmount(0)
+      // Seconds in MS
+    }, 10 * 1000)
   }
 
   const handleSetCarbs = (type: 'decrese' | 'increase') => {
@@ -136,8 +140,8 @@ const App = () => {
             </div>
           </div>
           {calculatedUnitAmount > 0 && (
-            <p>
-            You should use <span style={{ color: 'var(--text-black)' }}>{calculatedUnitAmount} units</span> 💧
+            <p className='calculatedAmount'>
+            You should use <span>{calculatedUnitAmount} units</span> 💧
             </p>
           )}
           <div className="calculate">
@@ -172,7 +176,8 @@ const App = () => {
           })}
         </div>
       </div>
-      <Dialog isOpen={dialogOpen} setIsOpen={setDialogOpen} handleOk={handleOk} handleCancel={() => setDialogOpen(false)} /></>
+      <Dialog isOpen={dialogOpen} setIsOpen={setDialogOpen} handleOk={handleOk} handleCancel={() => setDialogOpen(false)} />
+    </>
   )
 }
 

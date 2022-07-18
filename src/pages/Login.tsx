@@ -17,7 +17,7 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit} className="wrapper login">
-      <input value={input} onChange={handleChange} required></input>
+      <input placeholder="Name" value={input} onChange={handleChange} required></input>
       <Button>Choose Name</Button>
     </form>
   )

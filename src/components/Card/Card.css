@@ -21,6 +21,8 @@
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   user-select: none;
   -webkit-user-select: none;
+  animation-duration: 300ms;
+  animation-name: fadein;
 }
 
 .draggable {
@@ -90,4 +92,13 @@
 
 .voteUp.active path {
   stroke: var(--green)
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -70,6 +70,7 @@ html {
   --20px: 1.25rem;
   --21px: 1.3125rem;
   --24px: calc(24rem / 16);
+  --27px: calc(27rem / 16);
   --36px: calc(36rem / 16);
 }
 
@@ -97,10 +98,21 @@ b {
   width: 100%;
   max-width: 600px;
   gap: 40px;
+  animation-duration: 300ms;
+  animation-name: fadein;
 }
 
 @media (max-width: 450px) {
   .wrapper {
     padding: var(--16px);
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
