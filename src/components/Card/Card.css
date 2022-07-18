@@ -19,10 +19,13 @@
 
 .draggable {
   cursor: -webkit-grab;
+  touch-action: none;
 }
 
-.draggable:hover {
-  transform: scale(1.1);
+@media (hover: hover) and (pointer: fine) {
+  .draggable:hover {
+    transform: scale(1.1);
+  }
 }
 
 .draggable:active {
@@ -30,7 +33,7 @@
   box-shadow: var(--shadow-elevation-medium);
 }
 
-.cardBottom {
+.cardBlock {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -48,9 +51,29 @@
 }
 
 .card span {
-  position: absolute;
   font-size: var(--16px);
   font-weight: 700;
-  top: 20px;
-  right: 20px;
+}
+
+.cardBlockRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cardVote {
+  gap: 10px;
+  display: flex;
+  cursor: pointer;
+}
+
+.cardVote span {
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  border-radius: 50%;
 }

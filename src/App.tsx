@@ -8,6 +8,27 @@ import { generateUniqueId } from './helpers/generateUniqueId'
 import { Meal } from './types'
 import Dialog from './components/Dialog/Dialog'
 
+const Login = () => {
+  const [, setUsername] = useLocalStorage('username', '')
+  const [input, setInput] = useState('')
+
+  const handleChange = (e: any) => {
+    setInput(e.target.value)
+  }
+
+  const handleSubmit = () => {
+    setUsername(input)
+    location.reload()
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="wrapper login">
+      <input value={input} onChange={handleChange} required></input>
+      <Button >Choose Name</Button>
+    </form>
+  )
+}
+
 const roundHalf = (num: number) => {
   return Math.round(num * 2) / 2
 }
@@ -20,6 +41,7 @@ const colorArray = [
 
 const App = () => {
   const [currentUnitCalculation] = useLocalStorage('unitCalculation', 0.5)
+  const [username] = useLocalStorage('username', '')
   const [currentCarbs, setCurrentCarbs] = useState(0)
   const [calculatedUnitAmount, setCalculatedUnitAmount] = useState(0)
   const [currentMealName, setCurrentMealName] = useState('Food')
@@ -36,7 +58,14 @@ const App = () => {
     setCalculatedUnitAmount(calculatedUnits)
     setPastMeals([
       ...pastMeals,
-      { name: currentMealName, carbs: currentCarbs, units: calculatedUnits, date: new Date(), id: generateUniqueId() }
+      {
+        name: currentMealName,
+        carbs: currentCarbs,
+        units: calculatedUnits,
+        date: new Date(),
+        id: generateUniqueId(),
+        vote: { up: false, down: false }
+      }
     ])
   }
 
@@ -56,9 +85,18 @@ const App = () => {
 
   const handleCardDelete = (e: any) => {
     setDialogOpen(true)
-    console.log(e)
     const cardID = e.currentTarget.id
     setCurrentCardInProgress(cardID)
+  }
+
+  const handleUpvote = (id: string) => {
+    const updatedArray = pastMeals.map((meal: Meal) => meal.id === id ? { ...meal, vote: { up: true, down: false } } : meal)
+    setPastMeals(updatedArray)
+  }
+
+  const handleDownvote = (id: string) => {
+    const updatedArray = pastMeals.map((meal: Meal) => meal.id === id ? { ...meal, vote: { up: false, down: true } } : meal)
+    setPastMeals(updatedArray)
   }
 
   const increaseCarbs = () => handleSetCarbs('increase')
@@ -66,10 +104,14 @@ const App = () => {
 
   let currentColorIndex = 0
 
+  if (username.length < 1) {
+    return <Login />
+  }
+
   return (
     <>
       <div className="wrapper">
-        <Welcome currentUnitCalculation={currentUnitCalculation} />
+        <Welcome username={username} currentUnitCalculation={currentUnitCalculation} />
         <div className='dataInputs'>
           <div>
             <p>Meal name</p>
@@ -113,7 +155,21 @@ const App = () => {
               currentColorIndex++
             }
 
-            return <Card onClick={handleCardDelete} backgroundColor={colorArray[currentColorIndex]} draggable id={meal.id} key={i} mealName={meal.name} carbs={meal.carbs} units={meal.units} date={new Date(meal.date)} />
+            return (
+              <Card
+                onClick={handleCardDelete}
+                backgroundColor={colorArray[currentColorIndex]}
+                draggable
+                id={meal.id}
+                key={i}
+                mealName={meal.name}
+                carbs={meal.carbs}
+                units={meal.units}
+                date={new Date(meal.date)}
+                vote={meal.vote}
+                handleUpvote={handleUpvote}
+                handleDownvote={handleDownvote} />
+            )
           })}
         </div>
       </div>

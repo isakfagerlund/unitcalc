@@ -11,10 +11,21 @@
 
 .app-welcome {
   width: 100%;
+  position: relative;
 }
 
 .app-welcome span{
   color: var(--text-grey);
+}
+
+.app-welcome svg {
+  height: 30px;
+  width: 40px;
+  position: absolute;
+  top: 1px;
+  right: 0;
+  color: var(--text-grey);
+  cursor: pointer;
 }
 
 .dataInputs {
@@ -93,4 +104,17 @@
   display: flex;
   flex-direction: column-reverse;
   gap: 40px;
+}
+
+.wrapper.login {
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+
+.login input {
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  width: 100%;
+  padding: 10px;
 }

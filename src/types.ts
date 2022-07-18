@@ -4,4 +4,8 @@ export interface Meal {
   units: number,
   date: Date,
   id: string
+  vote: {
+    up: boolean,
+    down: boolean
+  }
 }
