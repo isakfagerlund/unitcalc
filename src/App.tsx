@@ -49,6 +49,8 @@ const App = () => {
         vote: { up: false, down: false }
       }
     ])
+    setCurrentCarbs(0)
+    setCurrentMealName('Food')
     setTimeout(() => {
       setCalculatedUnitAmount(0)
       // Seconds in MS
