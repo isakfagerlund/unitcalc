@@ -49,13 +49,14 @@
 
 .card p {
   font-weight: 700;
-  font-size: var(--36px);
+  font-size: var(--27px);
   color: rgba(7, 6, 12, 0.3);
   line-height: 1;
 }
 
 .card p.value {
   color: var(--text--black);
+  word-break: break-word;
 }
 
 .card span {
