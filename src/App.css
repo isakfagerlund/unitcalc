@@ -141,6 +141,20 @@
   color: var(--text-black)
 }
 
+.unitExample {
+  width: 100%;
+  font-size: var(--16px)
+}
+
+.unitExample span {
+  display: block;
+  width: 100%;
+  color: rgb(81, 81, 81);
+  background: rgb(233, 233, 233);
+  padding: 12px;
+  border-radius: 12px;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

@@ -78,8 +78,12 @@ const Card = ({ mealName, carbs, units, date, onClick, id, draggable, background
     config: { duration: 200 }
   })
 
+  const handleDelete = (e: any) => {
+    onClick && onClick(e)
+  }
+
   return (
-    <animated.div {...shouldBind} className={`cardBG ${draggable && 'draggable'}`} style={{ opacity: opacityAmount }}>
+    <animated.div className={`cardBG ${draggable && 'draggable'}`} style={{ opacity: opacityAmount }}>
       <animated.div style={{ x, scale }}>
         <div id={id} onTouchEnd={handleDrag} onMouseUp={handleDrag} className="card" style={{ backgroundColor }}>
           <div className="cardBlock">
@@ -106,6 +110,14 @@ const Card = ({ mealName, carbs, units, date, onClick, id, draggable, background
                     <path d="M5.54167 17.4166V8.70831M1.58333 10.2916V15.8333C1.58333 16.7078 2.29221 17.4166 3.16667 17.4166H13.7958C14.968 17.4166 15.9649 16.5614 16.1432 15.4028L16.9957 9.86112C17.2171 8.42244 16.1039 7.12498 14.6483 7.12498H11.875C11.4378 7.12498 11.0833 6.77054 11.0833 6.33331V3.53544C11.0833 2.45731 10.2093 1.58331 9.13121 1.58331C8.87406 1.58331 8.64102 1.73475 8.53658 1.96974L5.75062 8.23817C5.62355 8.52407 5.34004 8.70831 5.02718 8.70831H3.16667C2.29221 8.70831 1.58333 9.4172 1.58333 10.2916Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </animated.span>
+                <span id={id} onClick={handleDelete} style={{ backgroundColor: '#FF8298' }}>
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6.75 7.75L7.59115 17.4233C7.68102 18.4568 8.54622 19.25 9.58363 19.25H14.4164C15.4538 19.25 16.319 18.4568 16.4088 17.4233L17.25 7.75"/>
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 7.5V6.75C9.75 5.64543 10.6454 4.75 11.75 4.75H12.25C13.3546 4.75 14.25 5.64543 14.25 6.75V7.5"/>
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 7.75H19"/>
+                  </svg>
+                </span>
+
               </div>
               <span>{date.toLocaleDateString(navigator?.language ?? 'en-US', (options as any))}</span>
             </div>
